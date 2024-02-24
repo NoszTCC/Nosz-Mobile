@@ -1,30 +1,61 @@
+import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
+import * as SplashScreen from 'expo-splash-screen';
 
-export default function Initial() {
+export default function Initial({navigation}) {
+  let [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+    Montserrat_800ExtraBold,
+    Montserrat_900Black,
+  });
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync(); // Evitar que a tela de splash seja ocultada automaticamente
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        await SplashScreen.hideAsync(); // Ocultar a tela de splash quando os recursos forem carregados
+      }
+    }
+
+    if (!fontsLoaded) {
+      loadResourcesAndDataAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-
-            <View style={styles.vtexto}>
-              <Text Text style={styles.t1}>Bem-vindo à</Text>
-              <Text style={styles.t2}>Nósz</Text> 
-            </View>
-
-            <View style={styles.vimg}>
-              <Image source={require('../assets/nosz.png')} style={styles.nosz}/>
-            </View>
-
-            <View style={styles.buttonview}>
-            <TouchableOpacity style={styles.buttonLogin}>
+      <View style={styles.content}>
+        <View style={styles.vtexto}>
+          <Text style={styles.t1}>Bem-vindo à</Text>
+          <Text style={styles.t2}>Nósz</Text> 
+        </View>
+        <View style={styles.vimg}>
+          <Image source={require('../assets/images/nosz.png')} style={styles.nosz}/>
+        </View>
+        <View style={styles.buttonview}>
+          <TouchableOpacity style={styles.buttonLogin}
+          onPress={() => navigation.navigate('Login', { title: 'Login',})}
+          >
             <Text style={styles.buttonTextLogin}>Fazer Login</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.buttonCadastro}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonCadastro}
+          onPress={() => navigation.navigate('Cadastro', { title: 'Cadastro',})}
+          >
             <Text style={styles.buttonTextCadastro}>Cadastrar</Text>
-            </TouchableOpacity>
-            </View>
-
-            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -37,24 +68,25 @@ const styles = StyleSheet.create({
     margin: 20
   },
   t1:{
+    fontFamily: 'Montserrat_600SemiBold',
     textAlign: 'left',
     fontSize: 45,
     color: '#444444',
     alignSelf: 'flex-start',
-    fontWeight: '600'
   },
   t2:{
+    fontFamily: 'Montserrat_700Bold',
     textAlign: 'left',
     fontSize: 50,
     alignSelf: 'flex-start',
     color: '#FA9914',
-    fontWeight: 'bold'
   },
   content:{
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: '#ecf0f1',
-    padding: 8,
+    margin: 10,
+    padding: 18,
     width: '100%',
     height: '100%',
   },
@@ -62,9 +94,7 @@ const styles = StyleSheet.create({
     width: 340,
     height: 400,
   },
-  vtexto:{
-
-  },
+  vtexto:{},
   vimg:{
     alignSelf:'center'
   },
@@ -89,6 +119,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonTextLogin: {
+    fontFamily: 'Montserrat_500Medium',
     color: '#E46216',
     fontSize: 18,
     fontWeight: '600',
@@ -108,6 +139,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonTextCadastro: {
+    fontFamily: 'Montserrat_500Medium',
     color: '#f5f5f5',
     fontSize: 18,
     fontWeight: '600',

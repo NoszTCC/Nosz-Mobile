@@ -3,7 +3,7 @@ import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity } from 'r
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function Login({navigation}) {
+export default function Cadastro({navigation}) {
   let [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -36,7 +36,7 @@ export default function Login({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.paragraph}>
-            Login
+            Cadastro
       </Text>
     </SafeAreaView>
   );
