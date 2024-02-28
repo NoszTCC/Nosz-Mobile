@@ -38,7 +38,11 @@ export default function Login({navigation}) {
       <View style={styles.content}>
       <View style={styles.vheader}>
         
+        <TouchableOpacity
+        onPress={() => navigation.navigate('Inicial', { title: 'Início',})}
+        >
         <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar}/>
+        </TouchableOpacity>
         <Image source={require('../assets/images/nosz.png')} style={styles.nosz}/>
 
       </View>
@@ -49,20 +53,28 @@ export default function Login({navigation}) {
           <Text style={styles.txt}>Digite seu email e senha.</Text>
       </View>
       
-      <View style={styles.inputs}>
-      <TextInput style={styles.input} placeholder='Email'/>
+      <View style={styles.vinputs}>
+      <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'}/>
+      <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'}/>
 
       </View>
 
 
-
+      {/* Botão do Login */}
       <View style={styles.buttonview}>
         <TouchableOpacity style={styles.buttonLogin}
-          onPress={() => navigation.navigate('Login', { title: 'Login',})}
           >
           <Text style={styles.buttonTextLogin}>Fazer Login</Text>
         </TouchableOpacity>
 
+        <Text style={styles.forgot}>Esqueceu a senha?</Text>
+
+        {/* Botão do google */}
+
+        <TouchableOpacity style={styles.buttonGoogle}
+          >
+          <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
+        </TouchableOpacity>
       </View>
       </View>
     </SafeAreaView>
@@ -115,8 +127,9 @@ const styles = StyleSheet.create({
   input:{
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
-    height: 45,
-    placeholder: "Email",
+    height: 35,
+    fontSize: 19,
+    margin: 20
 },
   content:{
     flex: 1,
@@ -134,13 +147,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonLogin: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#E46216',
     alignSelf: 'center',
     width: '75%',
     paddingVertical: 15,
     paddingHorizontal: 30,
-    borderRadius: 5,
-    margin: 30,
+    margin: 13,
+    borderRadius: 25,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },
     shadowOpacity: 1,
@@ -148,11 +161,37 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonTextLogin: {
-    fontFamily: 'Montserrat_500Medium',
-    color: '#E46216',
-    fontSize: 18,
+    fontFamily: 'Montserrat_600SemiBold',
+    color: '#f5f5f5',
+    fontSize: 16,
     fontWeight: '600',
     textAlign: 'center',
   },
+  buttonGoogle: {
+    backgroundColor: '#6098F3',
+    alignSelf: 'center',
+    width: '75%',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    margin: 13,
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 10 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  buttonTextGoogle: {
+    fontFamily: 'Montserrat_600SemiBold',
+    color: '#f5f5f5',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  forgot:{
+    color: '#683C15',
+    fontFamily: 'Montserrat_400Regular',
+    textDecorationLine: 'underline'
+  }
   
 });
