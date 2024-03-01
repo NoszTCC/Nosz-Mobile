@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   let [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -36,46 +36,52 @@ export default function Login({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-      <View style={styles.vheader}>
-        
-        <TouchableOpacity
-        onPress={() => navigation.navigate('Inicial', { title: 'Início',})}
-        >
-        <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar}/>
-        </TouchableOpacity>
-        <Image source={require('../assets/images/nosz.png')} style={styles.nosz}/>
 
-      </View>
+        <View style={styles.vheader}>
 
-      <View style={styles.vtexto}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Inicial', { title: 'Início', })}
+          >
+          <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
+          </TouchableOpacity>
+
+          <View style={styles.vtexto}>
           <Text style={styles.t1}>Realize seu</Text>
-          <Text style={styles.t2}>Login</Text> 
+          <Text style={styles.t2}>Login</Text>
           <Text style={styles.txt}>Digite seu email e senha.</Text>
-      </View>
-      
-      <View style={styles.vinputs}>
-      <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'}/>
-      <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'}/>
+        </View>
 
-      </View>
+        <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
+          <View style={styles.circulo}></View>
+        </View>
+
+        <View style={styles.vinputs}>
 
 
-      {/* Botão do Login */}
-      <View style={styles.buttonview}>
-        <TouchableOpacity style={styles.buttonLogin}
+          <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'} />
+          <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'} />
+
+
+        </View>
+
+        {/* Botão do Login */}
+        <View style={styles.buttonview}>
+          <TouchableOpacity style={styles.buttonLogin}
           >
-          <Text style={styles.buttonTextLogin}>Fazer Login</Text>
-        </TouchableOpacity>
+            <Text style={styles.buttonTextLogin}>Fazer Login</Text>
+          </TouchableOpacity>
 
-        <Text style={styles.forgot}>Esqueceu a senha?</Text>
+          <Text style={styles.forgot}>Esqueceu a senha?</Text>
 
-        {/* Botão do google */}
+          {/* Botão do google */}
 
-        <TouchableOpacity style={styles.buttonGoogle}
+          <TouchableOpacity style={styles.buttonGoogle}
           >
-          <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
-        </TouchableOpacity>
-      </View>
+            <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
+          </TouchableOpacity>
+          <View style={styles.circulo2}></View>
+
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -87,22 +93,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  vheader:{
+  vheader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderColor: '#000',
+    borderWidth: 3
   },
-  voltar:{
+  voltar: {
     width: 34,
     height: 40,
-    margin:10
+    margin: 10
   },
-  nosz:{
+  nosz: {
     width: 170,
     height: 170,
-    alignSelf:'flex-end',
-    zIndex:-1
+    alignSelf: 'flex-end',
+    zIndex: -1
   },
-  t1:{
+  t1: {
     fontFamily: 'Montserrat_600SemiBold',
     textAlign: 'left',
     fontSize: 35,
@@ -110,28 +118,48 @@ const styles = StyleSheet.create({
     color: '#000',
     alignSelf: 'flex-start',
   },
-  t2:{
+  t2: {
     fontFamily: 'Montserrat_700Bold',
     textAlign: 'left',
     fontSize: 35,
     alignSelf: 'flex-start',
     color: '#FA9914',
-  }, 
-  txt:{
+  },
+  txt: {
     fontFamily: 'Montserrat_600SemiBold',
     textAlign: 'left',
     fontSize: 18,
     color: '#565656',
     alignSelf: 'flex-start',
   },
-  input:{
+  circulo: {
+    position: 'absolute',
+    backgroundColor: '#0EAA00',
+    borderRadius: 360,
+    width: '130%',
+    height: '285%',
+    right: '34%',
+    bottom: '-290%',
+    zIndex: -1,
+  },
+  input: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
     height: 35,
     fontSize: 19,
     margin: 20
-},
-  content:{
+  },
+  circulo2: {
+    position: 'absolute',
+    backgroundColor: '#0EAA00',
+    borderRadius: 360,
+    width: '120%',
+    height: '264%',
+    bottom: '-90%',
+    right: '-4%',
+    zIndex: -999,
+  },
+  content: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: '#ecf0f1',
@@ -140,7 +168,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  buttonview:{
+  buttonview: {
     flexDirection: 'column',
     justifyContent: 'space-between',
     justifyContent: 'center',
@@ -177,9 +205,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 5,
   },
   buttonTextGoogle: {
     fontFamily: 'Montserrat_600SemiBold',
@@ -193,5 +218,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat_400Regular',
     textDecorationLine: 'underline'
   }
-  
 });
