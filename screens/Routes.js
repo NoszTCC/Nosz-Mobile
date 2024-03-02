@@ -16,11 +16,12 @@ export default function Routes() {
           headerShown: false, 
         }}
       >
+        
         <Stack.Screen name="Pagina Inicial" component={Home}></Stack.Screen>
         <Stack.Screen name="Login" component={Login}></Stack.Screen>
         <Stack.Screen name="Inicial" component={Initial}></Stack.Screen>
         <Stack.Screen name="Cadastro" component={Cadastro}></Stack.Screen>
-
+        
       </Stack.Navigator>
   );
 };
