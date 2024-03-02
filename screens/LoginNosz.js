@@ -39,28 +39,34 @@ export default function Login({ navigation }) {
 
         <View style={styles.vheader}>
 
+        <View style={styles.preheader}>
+          <View style={styles.vgoback}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Inicial', { title: 'Início', })}
           >
           <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
           </TouchableOpacity>
+          </View>
 
           <View style={styles.vtexto}>
+
           <Text style={styles.t1}>Realize seu</Text>
           <Text style={styles.t2}>Login</Text>
           <Text style={styles.txt}>Digite seu email e senha.</Text>
-        </View>
+
+          </View>
+          </View>
 
         <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
           <View style={styles.circulo}></View>
         </View>
 
-        <View style={styles.vinputs}>
 
+        {/* INPUTS */}
+        <View style={styles.vinputs}>
 
           <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'} />
           <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'} />
-
 
         </View>
 
@@ -77,7 +83,10 @@ export default function Login({ navigation }) {
 
           <TouchableOpacity style={styles.buttonGoogle}
           >
+            <View style={styles.vbGoogle}>
+            <Image source={require('../assets/images/google.png')} style={styles.google}/>
             <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
+            </View>
           </TouchableOpacity>
           <View style={styles.circulo2}></View>
 
@@ -96,8 +105,6 @@ const styles = StyleSheet.create({
   vheader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderColor: '#000',
-    borderWidth: 3
   },
   voltar: {
     width: 34,
@@ -142,9 +149,14 @@ const styles = StyleSheet.create({
     bottom: '-290%',
     zIndex: -1,
   },
+  vinputs:{
+    flex: 1, 
+    justifyContent: 'flex-end', 
+  },
   input: {
     borderBottomColor: '#000000',
     borderBottomWidth: 1,
+    color: '#131313',
     height: 35,
     fontSize: 19,
     margin: 20
@@ -206,12 +218,22 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },
   },
+  vbGoogle:{
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  google:{
+    width: 30,
+    height: 30,
+  },
   buttonTextGoogle: {
     fontFamily: 'Montserrat_600SemiBold',
     color: '#f5f5f5',
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'center',
+    marginLeft: 5
   },
   forgot:{
     color: '#683C15',

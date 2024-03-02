@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20
-  },
+    backgroundColor: '#FFE9C0'
+    },
   t1:{
     fontFamily: 'Montserrat_600SemiBold',
     textAlign: 'left',
@@ -84,15 +84,15 @@ const styles = StyleSheet.create({
   content:{
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#FFE9C0',
     margin: 10,
     padding: 18,
     width: '100%',
     height: '100%',
   },
   nosz:{
-    width: 340,
-    height: 400,
+    width: 320,
+    height: 360,
   },
   vtexto:{},
   vimg:{
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10
   },
   buttonLogin: {
     backgroundColor: '#F5F5F5',
