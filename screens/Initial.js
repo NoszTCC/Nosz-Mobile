@@ -3,7 +3,7 @@ import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity } from 'r
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function Initial({navigation}) {
+export default function Initial({ navigation }) {
   let [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -35,26 +35,30 @@ export default function Initial({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.vtexto}>
-          <Text style={styles.t1}>Bem-vindo à</Text>
-          <Text style={styles.t2}>Nósz</Text> 
+      <View style={styles.background}>
+        <View style={styles.content}>
+          <View style={styles.vtexto}>
+            <Text style={styles.t1}>Bem-vindo à</Text>
+            <Text style={styles.t2}>Nósz</Text>
+          </View>
+          <View style={styles.vimg}>
+            <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
+          </View>
+          <View style={styles.buttonview}>
+            <TouchableOpacity style={styles.buttonLogin}
+              onPress={() => navigation.navigate('Login', { title: 'Login', })}
+            >
+              <Text style={styles.buttonTextLogin}>Fazer Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonCadastro}
+              onPress={() => navigation.navigate('Cadastro', { title: 'Cadastro', })}
+            >
+              <Text style={styles.buttonTextCadastro}>Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.vimg}>
-          <Image source={require('../assets/images/nosz.png')} style={styles.nosz}/>
-        </View>
-        <View style={styles.buttonview}>
-          <TouchableOpacity style={styles.buttonLogin}
-          onPress={() => navigation.navigate('Login', { title: 'Login',})}
-          >
-            <Text style={styles.buttonTextLogin}>Fazer Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonCadastro}
-          onPress={() => navigation.navigate('Cadastro', { title: 'Cadastro',})}
-          >
-            <Text style={styles.buttonTextCadastro}>Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
+        <View style={styles.circle}></View>
+        <View style={styles.circle2}></View>
       </View>
     </SafeAreaView>
   );
@@ -65,38 +69,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFE9C0'
-    },
-  t1:{
-    fontFamily: 'Montserrat_600SemiBold',
-    textAlign: 'left',
-    fontSize: 45,
-    color: '#444444',
-    alignSelf: 'flex-start',
   },
-  t2:{
-    fontFamily: 'Montserrat_700Bold',
-    textAlign: 'left',
-    fontSize: 50,
-    alignSelf: 'flex-start',
-    color: '#FA9914',
-  },
-  content:{
+  background: {
     flex: 1,
-    justifyContent: 'space-between',
+    position: 'relative',
     backgroundColor: '#FFE9C0',
-    margin: 10,
-    padding: 18,
-    width: '100%',
-    height: '100%',
   },
-  nosz:{
-    width: 320,
-    height: 360,
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 20,
   },
-  vtexto:{},
-  vimg:{
-    alignSelf:'center'
+  vtexto: {
+    marginBottom: 40,
+  },
+  t1: {
+    fontFamily: 'Montserrat_600SemiBold',
+    textAlign: 'center',
+    fontSize: 40,
+    color: '#444444',
+  },
+  t2: {
+    fontFamily: 'Montserrat_800ExtraBold',
+    textAlign: 'center',
+    fontSize: 45,
+    color: '#479d32',
+    marginBottom: 20,
+  },
+  vimg: {
+    marginBottom: 40,
+  },
+  nosz: {
+    width: 300,
+    height: 300,
   },
   buttonview:{
     flexDirection: 'column',
@@ -108,9 +114,9 @@ const styles = StyleSheet.create({
   buttonLogin: {
     backgroundColor: '#F5F5F5',
     alignSelf: 'center',
-    width: '75%',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+    width: '100%',
+    paddingVertical: '5%', 
+    paddingHorizontal: '20%',
     borderRadius: 5,
     margin: 30,
     shadowColor: '#000',
@@ -129,9 +135,9 @@ const styles = StyleSheet.create({
   buttonCadastro: {
     backgroundColor: '#E46216',
     alignSelf: 'center',
-    width: '75%',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+    width: '100%',
+    paddingVertical: '5%', 
+    paddingHorizontal: '22%',
     borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },

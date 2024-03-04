@@ -3,7 +3,23 @@ import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInpu
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function Login({ navigation }) {
+import {initializeApp} from '@firebase/app';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from '@firebase/auth';
+import { firebase } from "@react-native-firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC7dEbqAOFTgaHAgNyGWKm6N0DtIOhlCok",
+  authDomain: "bdnosz.firebaseapp.com",
+  projectId: "bdnosz",
+  storageBucket: "bdnosz.appspot.com",
+  messagingSenderId: "304409954868",
+  appId: "1:304409954868:web:833478c74d88ee55681861",
+  measurementId: "G-QC6QBJJ54F"
+};
+
+const app = initializeApp(firebaseConfig);
+
+export default function Login({ navigation, email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) {
   let [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -64,15 +80,28 @@ export default function Login({ navigation }) {
 
         {/* INPUTS */}
         <View style={styles.vinputs}>
+          {/* EMAIL INPUT */}
+          <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize='none'
+           />
 
-          <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'} />
-          <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'} />
+
+
+          {/* PASSWORD INPUT */}
+          <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+           />
 
         </View>
 
         {/* Botão do Login */}
         <View style={styles.buttonview}>
           <TouchableOpacity style={styles.buttonLogin}
+            onPress={handleAuthentication}
           >
             <Text style={styles.buttonTextLogin}>Fazer Login</Text>
           </TouchableOpacity>
