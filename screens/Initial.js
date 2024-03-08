@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFE9C0',
   },
   background: {
     flex: 1,
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '100%',
     paddingVertical: '5%', 
-    paddingHorizontal: '22%',
+    paddingHorizontal: '23%',
     borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },

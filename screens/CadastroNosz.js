@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
+import { getAuth, createUserWithEmailAndPassword,} from '@firebase/auth';
 import * as SplashScreen from 'expo-splash-screen';
+import { initializeApp } from '@firebase/app';
 
-import {initializeApp} from '@firebase/app';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from '@firebase/auth';
-import { firebase } from "@react-native-firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC7dEbqAOFTgaHAgNyGWKm6N0DtIOhlCok",
@@ -19,8 +18,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export default function Login({ navigation, email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) {
-  let [fontsLoaded] = useFonts({
+export default function Cadastro({ navigation }) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const auth = getAuth(app);
+
+
+  //CONFIGURAÇÃO DAS FONTES
+  const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
@@ -32,22 +38,31 @@ export default function Login({ navigation, email, setEmail, password, setPasswo
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync(); // Evitar que a tela de splash seja ocultada automaticamente
+        SplashScreen.preventAutoHideAsync();
       } catch (e) {
         console.warn(e);
       } finally {
-        await SplashScreen.hideAsync(); // Ocultar a tela de splash quando os recursos forem carregados
+        await SplashScreen.hideAsync(); 
       }
     }
 
-    if (!fontsLoaded) {
-      loadResourcesAndDataAsync();
-    }
-  }, [fontsLoaded]);
+    loadResourcesAndDataAsync();
+  }, []);
+  //FIM DAS CONFIGURAÇÕES DAS FONTES!!!
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  //INICIO CÓDIGO DE CADASTRO
+  const handleCadastro = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Usuário Criado com sucesso");
+      setTimeout(() => {
+        navigation.navigate('Inicial');
+      }, 5000);
+    } catch (error) {
+      alert(error.mesage)
+      console.error('Cadastro error:', error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,65 +70,62 @@ export default function Login({ navigation, email, setEmail, password, setPasswo
 
         <View style={styles.vheader}>
 
-        <View style={styles.preheader}>
-          <View style={styles.vgoback}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Inicial', { title: 'Início', })}
-          >
-          <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
-          </TouchableOpacity>
+          <View style={styles.preheader}>
+            <View style={styles.vgoback}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Inicial', { title: 'Início' })}
+              >
+                <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.vtexto}>
+              <Text style={styles.t1}>Realize seu</Text>
+              <Text style={styles.t2}>Cadastro</Text>
+              <Text style={styles.txt}>Digite seu email e senha.</Text>
+            </View>
           </View>
 
-          <View style={styles.vtexto}>
-
-          <Text style={styles.t1}>Realize seu</Text>
-          <Text style={styles.t2}>Cadastro</Text>
-          <Text style={styles.txt}>Digite seu email e senha.</Text>
-
-          </View>
-          </View>
-
-        <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
+          <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
           <View style={styles.circulo}></View>
         </View>
 
-
-        {/* INPUTS */}
         <View style={styles.vinputs}>
-          {/* EMAIL INPUT */}
-          <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'}
+          <TextInput
+            style={styles.input}
+            placeholder='Email'
+            cursorColor={'#E46216'}
             value={email}
             onChangeText={setEmail}
             autoCapitalize='none'
-           />
+          />
 
-
-
-          {/* PASSWORD INPUT */}
-          <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-           />
+          <TextInput
+            style={styles.input}
+            placeholder='Senha'
+            cursorColor={'#E46216'}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
 
         </View>
 
-        {/* Botão do Cadastro */}
         <View style={styles.buttonview}>
-          <TouchableOpacity style={styles.buttonCadastro}
-            onPress={handleAuthentication}
+          <TouchableOpacity
+            style={styles.buttonCadastro}
+            onPress={handleCadastro}
           >
             <Text style={styles.buttonTextCadastro}>Cadastrar</Text>
           </TouchableOpacity>
 
-
           <View style={styles.circulo2}></View>
-
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
