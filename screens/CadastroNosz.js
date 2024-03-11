@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
-import { getAuth, createUserWithEmailAndPassword,} from '@firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
 import * as SplashScreen from 'expo-splash-screen';
 import { initializeApp } from '@firebase/app';
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC7dEbqAOFTgaHAgNyGWKm6N0DtIOhlCok",
-  authDomain: "bdnosz.firebaseapp.com",
-  projectId: "bdnosz",
-  storageBucket: "bdnosz.appspot.com",
-  messagingSenderId: "304409954868",
-  appId: "1:304409954868:web:833478c74d88ee55681861",
-  measurementId: "G-QC6QBJJ54F"
-};
+import firebaseConfig from '../firebaseConfig';
 
 const app = initializeApp(firebaseConfig);
 
 export default function Cadastro({ navigation }) {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const auth = getAuth(app);
 
-
-  //CONFIGURAÇÃO DAS FONTES
+  // CONFIGURAÇÃO DAS FONTES
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -45,31 +34,37 @@ export default function Cadastro({ navigation }) {
         await SplashScreen.hideAsync(); 
       }
     }
-
     loadResourcesAndDataAsync();
   }, []);
-  //FIM DAS CONFIGURAÇÕES DAS FONTES!!!
 
-  //INICIO CÓDIGO DE CADASTRO
+  // INICIO CÓDIGO DE CADASTRO
   const handleCadastro = async () => {
     try {
+      if (password.length < 6) {
+        Alert.alert('Erro ao fazer cadastro', 'A senha deve conter pelo menos 6 caracteres');
+        return;
+      }
+      if (password !== confirmPassword) {
+        Alert.alert('Erro ao fazer cadastro', 'As senhas não coincidem');
+        return;
+      }
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("Usuário Criado com sucesso");
-      setTimeout(() => {
-        navigation.navigate('Inicial');
-      }, 5000);
+      Alert.alert('Cadastro realizado com sucesso', 'Usuário criado com sucesso');
+      navigation.navigate('Inicial');
     } catch (error) {
-      alert(error.mesage)
+      Alert.alert('Erro ao fazer cadastro', error.message);
       console.error('Cadastro error:', error.message);
     }
   };
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-
         <View style={styles.vheader}>
-
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
               <TouchableOpacity
@@ -78,18 +73,15 @@ export default function Cadastro({ navigation }) {
                 <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
               </TouchableOpacity>
             </View>
-
             <View style={styles.vtexto}>
               <Text style={styles.t1}>Realize seu</Text>
               <Text style={styles.t2}>Cadastro</Text>
               <Text style={styles.txt}>Digite seu email e senha.</Text>
             </View>
           </View>
-
           <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
           <View style={styles.circulo}></View>
         </View>
-
         <View style={styles.vinputs}>
           <TextInput
             style={styles.input}
@@ -99,7 +91,6 @@ export default function Cadastro({ navigation }) {
             onChangeText={setEmail}
             autoCapitalize='none'
           />
-
           <TextInput
             style={styles.input}
             placeholder='Senha'
@@ -108,9 +99,15 @@ export default function Cadastro({ navigation }) {
             onChangeText={setPassword}
             secureTextEntry
           />
-
+          <TextInput
+            style={styles.input}
+            placeholder='Confirmar Senha'
+            cursorColor={'#E46216'}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
         </View>
-
         <View style={styles.buttonview}>
           <TouchableOpacity
             style={styles.buttonCadastro}
@@ -118,7 +115,6 @@ export default function Cadastro({ navigation }) {
           >
             <Text style={styles.buttonTextCadastro}>Cadastrar</Text>
           </TouchableOpacity>
-
           <View style={styles.circulo2}></View>
         </View>
       </View>

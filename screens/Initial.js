@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   t2: {
     fontFamily: 'Montserrat_800ExtraBold',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 45,
     color: '#479d32',
     marginBottom: 20,

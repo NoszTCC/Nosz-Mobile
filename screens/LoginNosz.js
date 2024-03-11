@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
-
-import {initializeApp} from '@firebase/app';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from '@firebase/auth';
-import { firebase } from "@react-native-firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC7dEbqAOFTgaHAgNyGWKm6N0DtIOhlCok",
-  authDomain: "bdnosz.firebaseapp.com",
-  projectId: "bdnosz",
-  storageBucket: "bdnosz.appspot.com",
-  messagingSenderId: "304409954868",
-  appId: "1:304409954868:web:833478c74d88ee55681861",
-  measurementId: "G-QC6QBJJ54F"
-};
+import { initializeApp } from '@firebase/app';
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
+import firebaseConfig from '../firebaseConfig';
 
 const app = initializeApp(firebaseConfig);
 
-export default function Login({ navigation, email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) {
+export default function Login({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   let [fontsLoaded] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -32,11 +24,11 @@ export default function Login({ navigation, email, setEmail, password, setPasswo
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync(); // Evitar que a tela de splash seja ocultada automaticamente
+        SplashScreen.preventAutoHideAsync();
       } catch (e) {
         console.warn(e);
       } finally {
-        await SplashScreen.hideAsync(); // Ocultar a tela de splash quando os recursos forem carregados
+        await SplashScreen.hideAsync();
       }
     }
 
@@ -45,6 +37,17 @@ export default function Login({ navigation, email, setEmail, password, setPasswo
     }
   }, [fontsLoaded]);
 
+  const handleAuthentication = async () => {
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      navigation.navigate('Pagina Inicial');
+    } catch (error) {
+      Alert.alert('Erro ao fazer login', error.message);
+      console.error('Erro ao fazer login:', error);
+    }
+  };
+
   if (!fontsLoaded) {
     return null;
   }
@@ -52,73 +55,52 @@ export default function Login({ navigation, email, setEmail, password, setPasswo
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-
         <View style={styles.vheader}>
-
-        <View style={styles.preheader}>
-          <View style={styles.vgoback}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Inicial', { title: 'Início', })}
-          >
-          <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
-          </TouchableOpacity>
+          <View style={styles.preheader}>
+            <View style={styles.vgoback}>
+              <TouchableOpacity onPress={() => navigation.navigate('Inicial', { title: 'Início', })}>
+                <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.vtexto}>
+              <Text style={styles.t1}>Realize seu</Text>
+              <Text style={styles.t2}>Login</Text>
+              <Text style={styles.txt}>Digite seu email e senha.</Text>
+            </View>
           </View>
-
-          <View style={styles.vtexto}>
-
-          <Text style={styles.t1}>Realize seu</Text>
-          <Text style={styles.t2}>Login</Text>
-          <Text style={styles.txt}>Digite seu email e senha.</Text>
-
-          </View>
-          </View>
-
-        <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
+          <Image source={require('../assets/images/nosz.png')} style={styles.nosz} />
           <View style={styles.circulo}></View>
         </View>
-
-
-        {/* INPUTS */}
         <View style={styles.vinputs}>
-          {/* EMAIL INPUT */}
-          <TextInput style={styles.input} placeholder='Email' cursorColor={'#E46216'}
+          <TextInput
+            style={styles.input}
+            placeholder='Email'
+            cursorColor={'#E46216'}
             value={email}
             onChangeText={setEmail}
             autoCapitalize='none'
-           />
-
-
-
-          {/* PASSWORD INPUT */}
-          <TextInput style={styles.input} placeholder='Senha' cursorColor={'#E46216'}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-           />
-
+          />
+          <TextInput
+            style={styles.input}
+            placeholder='Senha'
+            cursorColor={'#E46216'}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
         </View>
-
-        {/* Botão do Login */}
         <View style={styles.buttonview}>
-          <TouchableOpacity style={styles.buttonLogin}
-            onPress={handleAuthentication}
-          >
+          <TouchableOpacity style={styles.buttonLogin} onPress={handleAuthentication}>
             <Text style={styles.buttonTextLogin}>Fazer Login</Text>
           </TouchableOpacity>
-
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
-
-          {/* Botão do google */}
-
-          <TouchableOpacity style={styles.buttonGoogle}
-          >
+          <TouchableOpacity style={styles.buttonGoogle}>
             <View style={styles.vbGoogle}>
-            <Image source={require('../assets/images/google.png')} style={styles.google}/>
-            <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
+              <Image source={require('../assets/images/google.png')} style={styles.google} />
+              <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
             </View>
           </TouchableOpacity>
           <View style={styles.circulo2}></View>
-
         </View>
       </View>
     </SafeAreaView>
