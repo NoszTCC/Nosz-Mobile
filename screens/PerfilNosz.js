@@ -1,10 +1,10 @@
 import { Text, SafeAreaView, StyleSheet } from 'react-native';
-export default function Home() {
-  return (
 
-<SafeAreaView style={styles.container}>
+export default function Pefil() {
+  return (
+    <SafeAreaView style={styles.container}>
       <Text style={styles.paragraph}>
-        Home
+        Perfil
       </Text>
     </SafeAreaView>
   );

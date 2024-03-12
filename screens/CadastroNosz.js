@@ -9,6 +9,7 @@ import firebaseConfig from '../firebaseConfig';
 const app = initializeApp(firebaseConfig);
 
 export default function Cadastro({ navigation }) {
+  // PEGAR DADOS DO USUÁRIO
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
