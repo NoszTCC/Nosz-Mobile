@@ -41,7 +41,7 @@ export default function Login({ navigation }) {
     try {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate('Pagina Inicial');
+      navigation.navigate('Inicio');
     } catch (error) {
       Alert.alert('Erro ao fazer login', error.message);
       console.error('Erro ao fazer login:', error);
@@ -58,7 +58,7 @@ export default function Login({ navigation }) {
         <View style={styles.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
-              <TouchableOpacity onPress={() => navigation.navigate('Inicial', { title: 'Início', })}>
+              <TouchableOpacity onPress={() => navigation.navigate('Pagina Inicial', { title: 'Início', })}>
                 <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
               </TouchableOpacity>
             </View>

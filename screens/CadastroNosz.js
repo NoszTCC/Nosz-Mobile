@@ -51,7 +51,7 @@ export default function Cadastro({ navigation }) {
       }
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Cadastro realizado com sucesso', 'Usuário criado com sucesso');
-      navigation.navigate('Inicial');
+      navigation.navigate('Pagina Inicial');
     } catch (error) {
       Alert.alert('Erro ao fazer cadastro', error.message);
       console.error('Cadastro error:', error.message);
@@ -69,7 +69,7 @@ export default function Cadastro({ navigation }) {
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Inicial', { title: 'Início' })}
+                onPress={() => navigation.navigate('Pagina Inicial', { title: 'Início' })}
               >
                 <Image source={require('../assets/images/voltar-icon.png')} style={styles.voltar} />
               </TouchableOpacity>
