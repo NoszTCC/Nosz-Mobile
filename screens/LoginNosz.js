@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
-import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import firebaseConfig from '../firebaseConfig';
@@ -28,7 +27,12 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={estilosGerais.container}>
-      <View style={estilosGerais.content}>
+      <StatusBar 
+       barStyle="light-content"
+       translucent={true}
+       backgroundColor="transparent"
+       /> 
+       <View style={estilosGerais.content}>
         <View style={estilosGerais.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
@@ -100,8 +104,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#0EAA00',
     borderRadius: 360,
-    width: '120%',
-    height: '264%',
+    width: '130%',
+    height: '285%',
     bottom: '-90%',
     right: '-4%',
     zIndex: -999,

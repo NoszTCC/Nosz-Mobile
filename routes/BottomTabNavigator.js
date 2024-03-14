@@ -29,7 +29,7 @@ const BottomTabNavigator = () => {
       left: 0,
       elevation: 0,
       height: '7%',
-      margin: 5,
+      margin: 15,
       borderRadius: 20,
       backgroundColor: '#683C15',
     },
@@ -43,7 +43,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIcon}>
-              <FontAwesome5 name="user-alt" size={25} color={focused ? '#479D32' : '#fff'} />
+              <FontAwesome5 name="user-alt" size={25} color={focused ? '#D5965E' : '#fff'} />
               
               <Text style={styles.tabText}>Perfil</Text>
               
@@ -58,7 +58,7 @@ const BottomTabNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIcon}>
-              <Ionicons name="home" size={25} color={focused ? '#479D32' : '#fff'} />
+              <Ionicons name="home" size={25} color={focused ? '#D5965E' : '#fff'} />
             
               <Text style={styles.tabText}>Início</Text>
              

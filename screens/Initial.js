@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -35,6 +35,11 @@ export default function Initial({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar 
+       barStyle="light-content"
+       translucent={true}
+       backgroundColor="transparent"
+       />
       <View style={styles.background}>
         <View style={styles.content}>
           <View style={styles.vtexto}>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
-import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import * as SplashScreen from 'expo-splash-screen';
 import { initializeApp } from '@firebase/app';
@@ -11,6 +10,22 @@ const app = initializeApp(firebaseConfig);
 
 export default function Cadastro({ navigation }) {
 
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        await SplashScreen.hideAsync();
+      }
+    }
+  
+    loadResourcesAndDataAsync(); 
+  }, []); 
+  
+  
   // ESTILOS
   const estilosGerais = estilizar();
 
@@ -42,7 +57,12 @@ export default function Cadastro({ navigation }) {
 
   return (
     <SafeAreaView style={estilosGerais.container}>
-      <View style={estilosGerais.content}>
+      <StatusBar 
+       barStyle="light-content"
+       translucent={true}
+       backgroundColor="transparent"
+       />      
+       <View style={estilosGerais.content}>
         <View style={estilosGerais.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
@@ -123,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f89a14',
     borderRadius: 360,
     width: '150%',
-    height: '504%',
+    height: '580%',
     bottom: '-90%',
     right: '-4%',
     zIndex: -999,
