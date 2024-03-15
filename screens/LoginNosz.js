@@ -13,6 +13,9 @@ export default function Login({ navigation }) {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  
 
   const handleAuthentication = async () => {
     try {
@@ -20,7 +23,20 @@ export default function Login({ navigation }) {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Inicio');
     } catch (error) {
-      Alert.alert('Erro ao fazer login', error.message);
+      if (error.code === 'auth/invalid-credential') {
+        setErrorMessage('Email ou Senha incorretos.');
+      } else if (error.code === 'auth/invalid-email'){
+        setErrorMessage('Por favor, insira um email válido.');
+      } 
+     else if (error.code === 'auth/user-not-found'){
+      setErrorMessage('Email não cadastrado.');
+      }
+      else if (error.code === 'auth/missing-password'){
+        setErrorMessage('Por favor, insira a senha.');
+        }  
+      else {
+        setErrorMessage(error.message);
+      }
       console.error('Erro ao fazer login:', error);
     }
   };
@@ -68,9 +84,11 @@ export default function Login({ navigation }) {
           />
         </View>
         <View style={estilosGerais.buttonview}>
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
           <TouchableOpacity style={styles.buttonLogin} onPress={handleAuthentication}>
             <Text style={styles.buttonTextLogin}>Fazer Login</Text>
           </TouchableOpacity>
+          
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
           <TouchableOpacity style={styles.buttonGoogle}>
             <View style={styles.vbGoogle}>
@@ -90,7 +108,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#0EAA00',
     borderRadius: 360,
-    width: '130%',
+    width: '150%',
     height: '285%',
     right: '34%',
     bottom: '-290%',
@@ -98,17 +116,17 @@ const styles = StyleSheet.create({
   },
   vinputs:{
     flex: 1, 
-    justifyContent: 'flex-end', 
+    justifyContent: 'flex-end',
   },
   circulo2: {
     position: 'absolute',
     backgroundColor: '#0EAA00',
     borderRadius: 360,
-    width: '130%',
+    width: '150%',
     height: '285%',
-    bottom: '-90%',
+    bottom: '-110%',
     right: '-4%',
-    zIndex: -999,
+    zIndex: -1,
   },
   buttonLogin: {
     backgroundColor: '#E46216',
@@ -128,7 +146,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat_600SemiBold',
     color: '#f5f5f5',
     fontSize: 16,
-    fontWeight: '600',
     textAlign: 'center',
   },
   buttonGoogle: {
@@ -163,5 +180,10 @@ const styles = StyleSheet.create({
     color: '#683C15',
     fontFamily: 'Montserrat_400Regular',
     textDecorationLine: 'underline'
-  }
+  },
+  errorMessage: {
+    color: '#f89a14',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
 });

@@ -33,28 +33,43 @@ export default function Cadastro({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const auth = getAuth(app);
 
   // INICIO CÓDIGO DE CADASTRO
   const handleCadastro = async () => {
     try {
-      if (password.length < 6) {
-        Alert.alert('Erro ao fazer cadastro', 'A senha deve conter pelo menos 6 caracteres');
-        return;
+      if (password == "" || confirmPassword == "") {
+          setErrorMessage('Preencha todos os campos');
+          return;
       }
-      if (password !== confirmPassword) {
-        Alert.alert('Erro ao fazer cadastro', 'As senhas não coincidem');
+      if (password != confirmPassword) {
+        setErrorMessage('As senhas não coincidem');
         return;
       }
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Cadastro realizado com sucesso', 'Usuário criado com sucesso');
       navigation.navigate('Pagina Inicial');
     } catch (error) {
-      Alert.alert('Erro ao fazer cadastro', error.message);
-      console.error('Cadastro error:', error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        setErrorMessage('Este email já está cadastrado');
+      }
+      else if (error.code === 'auth/weak-password') {
+        setErrorMessage('A senha deve conter pelo menos 6 caracteres');
+      }
+     else if (error.code === 'auth/invalid-email'){
+      setErrorMessage('Por favor, insira um email válido');
+    }
+    else if (error.code === 'auth/missing-email'){
+      setErrorMessage('Por favor, insira um email.');
+      } 
+      else{
+        setErrorMessage(error.message);
+      }
+      console.error('Erro ao fazer cadastro:', error.message);
     }
   };
-
+  
   return (
     <SafeAreaView style={estilosGerais.container}>
       <StatusBar 
@@ -108,6 +123,7 @@ export default function Cadastro({ navigation }) {
           />
         </View>
         <View style={estilosGerais.buttonview}>
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
           <TouchableOpacity
             style={styles.buttonCadastro}
             onPress={handleCadastro}
@@ -127,7 +143,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#f89a14',
     borderRadius: 360,
-    width: '130%',
+    width: '150%',
     height: '285%',
     right: '34%',
     bottom: '-290%',
@@ -136,15 +152,15 @@ const styles = StyleSheet.create({
   vinputs:{
     flex: 1, 
     justifyContent: 'flex-end',
-    marginBottom: 80 
+    marginBottom: 10
   },
   circulo2: {
     position: 'absolute',
     backgroundColor: '#f89a14',
-    borderRadius: 360,
-    width: '150%',
+    borderRadius: 480,
+    width: '200%',
     height: '580%',
-    bottom: '-90%',
+    bottom: '-220%',
     right: '-4%',
     zIndex: -999,
   },
@@ -168,4 +184,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
+  errorMessage: {
+    color: '#ffff',
+    textAlign: 'center',
+    marginBottom: 5,
+  }
 });

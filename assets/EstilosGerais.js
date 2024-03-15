@@ -70,7 +70,7 @@ export const estilizar = () => {
             color: '#131313',
             height: 35,
             fontSize: 19,
-            margin: 20
+            margin: 15
         },
         content: {
             flex: 1,
