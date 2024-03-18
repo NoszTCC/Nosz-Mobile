@@ -49,7 +49,7 @@ export default function Cadastro({ navigation }) {
       }
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Cadastro realizado com sucesso', 'Usuário criado com sucesso');
-      navigation.navigate('Pagina Inicial');
+      navigation.navigate('Login');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setErrorMessage('Este email já está cadastrado');
@@ -82,7 +82,7 @@ export default function Cadastro({ navigation }) {
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Pagina Inicial', { title: 'Início' })}
+                onPress={() => navigation.navigate('Login', { title: 'Login' })}
               >
                 <Image source={require('../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
@@ -187,6 +187,8 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: '#ffff',
     textAlign: 'center',
+    fontFamily: 'Montserrat_600SemiBold',
     marginBottom: 5,
+    fontSize: 13
   }
 });

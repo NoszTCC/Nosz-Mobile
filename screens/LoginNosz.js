@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -16,7 +16,6 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
-  
 
   const handleAuthentication = async () => {
     try {
@@ -53,7 +52,7 @@ export default function Login({ navigation }) {
         <View style={estilosGerais.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
-              <TouchableOpacity onPress={() => navigation.navigate('Pagina Inicial', { title: 'Início', })}>
+              <TouchableOpacity onPress={() => navigation.navigate('Onboarding', { title: 'Onboarding', })}>
                 <Image source={require('../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
             </View>
@@ -91,6 +90,9 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
           
           <Text style={styles.forgot}>Esqueceu a senha?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+          <Text style={styles.linkCadastro}>Ou ainda não é cadastrado?</Text>
+          </TouchableOpacity>
           <View style={styles.vbGoogle}>
             <LoginGoogle></LoginGoogle>
           </View>
@@ -175,13 +177,23 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   forgot:{
+    fontSize: 15,
     color: '#683C15',
+    fontFamily: 'Montserrat_400Regular',
+    textDecorationLine: 'underline'
+  },
+  linkCadastro:{
+    marginTop: 7,
+    fontSize: 15,
+    color: '#f5f5f5',
     fontFamily: 'Montserrat_400Regular',
     textDecorationLine: 'underline'
   },
   errorMessage: {
     color: '#f89a14',
     textAlign: 'center',
+    fontFamily: 'Montserrat_600SemiBold',
     marginBottom: 10,
+    fontSize: 13
   },
 });

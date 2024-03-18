@@ -35,6 +35,7 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,

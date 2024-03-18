@@ -4,20 +4,20 @@ import BottomTabNavigator from './BottomTabNavigator';
 import HomeNosz from "../screens/HomeNosz";
 import Perfil from "../screens/PerfilNosz";
 import Login from "../screens/LoginNosz";
-import Initial from "../screens/Initial";
 import Cadastro from "../screens/CadastroNosz";
+import Onboarding from '../screens/Onboarding/Onboarding';
 
 const Stack = createNativeStackNavigator()
 
 export default function Routes() {
   return (
     <Stack.Navigator
-      initialRouteName='Pagina Inicial'
+      initialRouteName='Onboarding'
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Pagina Inicial" component={Initial} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Perfil" component ={Perfil} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Inicio">

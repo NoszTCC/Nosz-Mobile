@@ -8,7 +8,7 @@ const Perfil = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        navigation.navigate('Pagina Inicial'); 
+        navigation.navigate('Onboarding'); 
       }
     });
 
