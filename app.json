@@ -21,20 +21,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.nosztcc.Nosz"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "db13ec33-4659-4254-b705-781b5336b96c"
-      }
-    },
-    "scheme": "Nosz"
+    ]
   }
 }

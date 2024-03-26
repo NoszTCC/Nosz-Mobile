@@ -10,6 +10,7 @@ const Perfil = ({ navigation }) => {
       if (!user) {
         navigation.navigate('Onboarding'); 
       }
+      
     });
 
     return () => unsubscribe(); 

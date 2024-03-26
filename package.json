@@ -4,8 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -22,15 +22,18 @@
     "expo-app-loading": "^2.1.1",
     "expo-font": "~11.10.3",
     "expo-status-bar": "~1.11.1",
-    "expo-system-ui": "~2.9.3",
     "firebase": "^10.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.73.5",
     "react-native-gesture-handler": "~2.14.0",
+<<<<<<< HEAD
     "react-native-svg": "^15.1.0",
     "react-native-web": "~0.19.6",
     "yarn": "^1.22.22"
+=======
+    "react-native-web": "~0.19.6"
+>>>>>>> parent of cc377ee (iniciando Login do Google com API)
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -4,7 +4,6 @@ import { initializeApp } from '@firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import firebaseConfig from '../firebaseConfig';
 import { estilizar } from '../assets/EstilosGerais';
-import LoginGoogle from './LoginGoogle';
 
 const app = initializeApp(firebaseConfig);
 
@@ -96,6 +95,12 @@ export default function Login({ navigation }) {
           <View style={styles.vbGoogle}>
             <LoginGoogle></LoginGoogle>
           </View>
+          <TouchableOpacity style={styles.buttonGoogle}>
+            <View style={styles.vbGoogle}>
+              <Image source={require('../assets/images/google.png')} style={styles.google} />
+              <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.circulo2}></View>
         </View>
       </View>
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     margin: 13,
-    borderRadius: 15,
+    borderRadius: 25,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 10 },
     shadowOpacity: 1,
