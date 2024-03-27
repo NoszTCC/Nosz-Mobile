@@ -27,13 +27,9 @@
     "react-dom": "18.2.0",
     "react-native": "^0.73.5",
     "react-native-gesture-handler": "~2.14.0",
-<<<<<<< HEAD
     "react-native-svg": "^15.1.0",
     "react-native-web": "~0.19.6",
     "yarn": "^1.22.22"
-=======
-    "react-native-web": "~0.19.6"
->>>>>>> parent of cc377ee (iniciando Login do Google com API)
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

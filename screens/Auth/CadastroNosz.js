@@ -3,8 +3,8 @@ import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInpu
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import * as SplashScreen from 'expo-splash-screen';
 import { initializeApp } from '@firebase/app';
-import firebaseConfig from '../firebaseConfig';
-import { estilizar } from '../assets/EstilosGerais';
+import firebaseConfig from '../../firebaseConfig';
+import { estilizar } from '../../assets/EstilosGerais';
 
 const app = initializeApp(firebaseConfig);
 
@@ -84,7 +84,7 @@ export default function Cadastro({ navigation }) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('Login', { title: 'Login' })}
               >
-                <Image source={require('../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
+                <Image source={require('../../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
             </View>
             <View style={styles.vtexto}>
@@ -93,7 +93,7 @@ export default function Cadastro({ navigation }) {
               <Text style={estilosGerais.txt}>Digite seu email e senha.</Text>
             </View>
           </View>
-          <Image source={require('../assets/images/nosz.png')} style={estilosGerais.nosz} />
+          <Image source={require('../../assets/images/nosz.png')} style={estilosGerais.nosz} />
           <View style={styles.circulo}></View>
         </View>
         <View style={styles.vinputs}>

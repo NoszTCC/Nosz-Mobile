@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import firebaseConfig from '../firebaseConfig';
-import { estilizar } from '../assets/EstilosGerais';
+import firebaseConfig from '../../firebaseConfig';
+import { estilizar } from '../../assets/EstilosGerais';
+import LoginGoogle from './LoginGoogle';
+
 
 const app = initializeApp(firebaseConfig);
 
@@ -52,7 +54,7 @@ export default function Login({ navigation }) {
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
               <TouchableOpacity onPress={() => navigation.navigate('Onboarding', { title: 'Onboarding', })}>
-                <Image source={require('../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
+                <Image source={require('../../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
             </View>
             <View style={styles.vtexto}>
@@ -61,7 +63,7 @@ export default function Login({ navigation }) {
               <Text style={estilosGerais.txt}>Digite seu email e senha.</Text>
             </View>
           </View>
-          <Image source={require('../assets/images/nosz.png')} style={estilosGerais.nosz} />
+          <Image source={require('../../assets/images/nosz.png')} style={estilosGerais.nosz} />
           <View style={styles.circulo}></View>
         </View>
         <View style={styles.vinputs}>
@@ -95,12 +97,6 @@ export default function Login({ navigation }) {
           <View style={styles.vbGoogle}>
             <LoginGoogle></LoginGoogle>
           </View>
-          <TouchableOpacity style={styles.buttonGoogle}>
-            <View style={styles.vbGoogle}>
-              <Image source={require('../assets/images/google.png')} style={styles.google} />
-              <Text style={styles.buttonTextGoogle}>Continuar com Google</Text>
-            </View>
-          </TouchableOpacity>
           <View style={styles.circulo2}></View>
         </View>
       </View>
