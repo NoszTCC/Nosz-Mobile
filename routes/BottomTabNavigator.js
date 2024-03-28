@@ -4,7 +4,6 @@ import { View, StyleSheet, Animated } from 'react-native';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useFonts, Montserrat_400Regular } from '@expo-google-fonts/montserrat';
 
-
 import Home from '../screens/HomeNosz';
 import Perfil from '../screens/PerfilNosz';
 
@@ -18,6 +17,7 @@ const BottomTabNavigator = () => {
   if (!fontLoaded) {
     return null;
   }
+
   const TabBarIcon = ({ focused, icon, label }) => {
     const translateY = focused ? -20 : 0;
 
@@ -26,7 +26,7 @@ const BottomTabNavigator = () => {
         <Animated.View style={[styles.circle, { transform: [{ translateY }] }]}>
           {icon}
         </Animated.View>
-        <Animated.Text style={[styles.tabText, { color: focused ? '#e36216' : '#fff', transform: [{ translateY }] }]}>
+        <Animated.Text style={[styles.tabText, { color: focused ? '#683C15' : '#fff', transform: [{ translateY }] }]}>
           {label}
         </Animated.Text>
       </View>
@@ -39,21 +39,20 @@ const BottomTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: [
-          {
+        tabBarStyle: {
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
           elevation: 0,
-          backgroundColor: '#683C15',
-          borderRadius: 15,
+          backgroundColor: '#F7F7F7', 
+          borderTopColor: '#683C15', 
+          borderTopWidth: 1,
           height: 65,
           margin: 10,
-          paddingVertical: 0
-          },
-          null,
-        ],
+          paddingVertical: 0,
+          borderRadius: 15,
+        },
       }}
     >
       <Tab.Screen
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   circle: {
-    backgroundColor: '#e36216',
+    backgroundColor: '#683C15',
     width: 44,
     height: 44,
     borderRadius: 22,

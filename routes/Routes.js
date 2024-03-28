@@ -4,6 +4,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import Login from "../screens/Auth/LoginNosz";
 import Cadastro from "../screens/Auth/CadastroNosz";
 import Onboarding from '../screens/Onboarding/Onboarding';
+import Home from '../screens/HomeNosz';
 
 const Stack = createNativeStackNavigator()
 
@@ -20,7 +21,7 @@ export default function Routes() {
       <Stack.Screen name="Inicio">
         {() => (
           <BottomTabNavigator>
-            <HomeNosz />
+            <Home />
           </BottomTabNavigator>
         )}
       </Stack.Screen>
