@@ -1,44 +1,30 @@
 import React, { useState } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
+import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, fetchSignInMethodsForEmail } from 'firebase/auth';
 import firebaseConfig from '../../firebaseConfig';
 import { estilizar } from '../../assets/EstilosGerais';
-import LoginGoogle from './LoginGoogle';
-
 
 const app = initializeApp(firebaseConfig);
 
-export default function Login({ navigation }) {
+export default function EsqueceuSenha({ navigation }) {
 
   const estilosGerais = estilizar();
-  
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-
-  const handleAuthentication = async () => {
+  const handleFoundEMail = async () => {
     try {
       const auth = getAuth(app);
-      await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate('Inicio');
+      const procura = await fetchSignInMethodsForEmail(auth, email);
+
+      if (procura.length == 1) {
+        navigation.navigate('AlterarSenha', { email });
+      } else {
+        console.log('E-Mail não cadastrado.', procura.length, email);
+      }
     } catch (error) {
-      if (error.code === 'auth/invalid-credential') {
-        setErrorMessage('Email ou Senha incorretos.');
-      } else if (error.code === 'auth/invalid-email'){
-        setErrorMessage('Por favor, insira um email válido.');
-      } 
-     else if (error.code === 'auth/user-not-found'){
-      setErrorMessage('Email não cadastrado.');
-      }
-      else if (error.code === 'auth/missing-password'){
-        setErrorMessage('Por favor, insira a senha.');
-        }  
-      else {
-        setErrorMessage(error.message);
-      }
-      console.error('Erro ao fazer login:', error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -58,49 +44,31 @@ export default function Login({ navigation }) {
               </TouchableOpacity>
             </View>
             <View style={styles.vtexto}>
-              <Text style={estilosGerais.t1}>Realize seu</Text>
-              <Text style={estilosGerais.t2}>Login</Text>
-              <Text style={estilosGerais.txt}>Digite seu email e senha.</Text>
+              <Text style={estilosGerais.t1}>Altere sua</Text>
+              <Text style={estilosGerais.t2}>Senha</Text>
+              <Text style={estilosGerais.txt}>Insira seu E-Mail</Text>
             </View>
           </View>
           <Image source={require('../../assets/images/nosz.png')} style={estilosGerais.nosz} />
-          <View style={styles.circulo} behavior="padding"></View>
+          <View style={styles.circulo}></View>
         </View>
         <View style={styles.vinputs}>
           <TextInput
             style={estilosGerais.input}
-            placeholder='Email'
+            placeholder='E-Mail'
             cursorColor={'#E46216'}
             value={email}
             onChangeText={setEmail}
             autoCapitalize='none'
           />
-          <TextInput
-            style={estilosGerais.input}
-            placeholder='Senha'
-            cursorColor={'#E46216'}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
         </View>
         <View style={estilosGerais.buttonview}>
           <Text style={styles.errorMessage}>{errorMessage}</Text>
-          <TouchableOpacity style={styles.buttonLogin} onPress={handleAuthentication}>
-            <Text style={styles.buttonTextLogin}>Fazer Login</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
-            <Text style={styles.forgot}>Esqueceu a senha?</Text>
+          <TouchableOpacity style={styles.buttonLogin} onPress={handleFoundEMail}>
+            <Text style={styles.buttonTextLogin}> Procurar E-Mail </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={styles.linkCadastro}>Ou ainda não é cadastrado?</Text>
-          </TouchableOpacity>
-          <View style={styles.vbGoogle}>
-            <LoginGoogle></LoginGoogle>
-          </View>
-          <View style={styles.circulo2} behavior="padding"></View>
+          <View style={styles.circulo2}></View>
         </View>
       </View>
     </SafeAreaView>
@@ -110,7 +78,7 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   circulo: {
     position: 'absolute',
-    backgroundColor: '#0EAA00',
+    backgroundColor: '#683c15',
     borderRadius: 360,
     width: '150%',
     height: '285%',
@@ -124,7 +92,7 @@ const styles = StyleSheet.create({
   },
   circulo2: {
     position: 'absolute',
-    backgroundColor: '#0EAA00',
+    backgroundColor: '#683c15',
     borderRadius: 360,
     width: '150%',
     height: '285%',

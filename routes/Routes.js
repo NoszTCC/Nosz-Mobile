@@ -1,10 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
 
-import Login from "../screens/Auth/LoginNosz";
-import Cadastro from "../screens/Auth/CadastroNosz";
 import Onboarding from '../screens/Onboarding/Onboarding';
+import Login from "../screens/Auth/LoginNosz";
+import EsqueceuSenha from '../screens/Auth/EsqueceuSenha';
+import AlterarSenha from '../screens/Auth/AlterarSenha';
 import Home from '../screens/HomeNosz';
+import Cadastro from "../screens/Auth/CadastroNosz";
 
 const Stack = createNativeStackNavigator()
 
@@ -18,6 +20,8 @@ export default function Routes() {
     >
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="EsqueceuSenha" component={EsqueceuSenha} />
+      <Stack.Screen name="AlterarSenha" component={AlterarSenha} />
       <Stack.Screen name="Inicio">
         {() => (
           <BottomTabNavigator>
