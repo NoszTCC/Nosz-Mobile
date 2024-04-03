@@ -4,7 +4,6 @@ import BottomTabNavigator from './BottomTabNavigator';
 import Onboarding from '../screens/Onboarding/Onboarding';
 import Login from "../screens/Auth/LoginNosz";
 import EsqueceuSenha from '../screens/Auth/EsqueceuSenha';
-import AlterarSenha from '../screens/Auth/AlterarSenha';
 import Home from '../screens/HomeNosz';
 import Cadastro from "../screens/Auth/CadastroNosz";
 
@@ -21,7 +20,6 @@ export default function Routes() {
       <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="EsqueceuSenha" component={EsqueceuSenha} />
-      <Stack.Screen name="AlterarSenha" component={AlterarSenha} />
       <Stack.Screen name="Inicio">
         {() => (
           <BottomTabNavigator>

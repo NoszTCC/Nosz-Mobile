@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
-import { getAuth, fetchSignInMethodsForEmail } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import firebaseConfig from '../../firebaseConfig';
 import { estilizar } from '../../assets/EstilosGerais';
 
@@ -11,20 +11,19 @@ export default function EsqueceuSenha({ navigation }) {
 
   const estilosGerais = estilizar();
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleFoundEMail = async () => {
+  const handleResetPassword = async () => {
     try {
       const auth = getAuth(app);
-      const procura = await fetchSignInMethodsForEmail(auth, email);
-
-      if (procura.length == 1) {
-        navigation.navigate('AlterarSenha', { email });
-      } else {
-        console.log('E-Mail não cadastrado.', procura.length, email);
-      }
+      await sendPasswordResetEmail(auth, email);
+      setMessage('Email enviado com sucesso!');
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.code === 'auth/missing-email') {
+        setMessage('Por favor, insira um email.');
+      } else if (error.code === 'auth/invalid-email'){
+        setMessage('Email ainda não cadastrado');
+      } 
     }
   };
 
@@ -39,7 +38,7 @@ export default function EsqueceuSenha({ navigation }) {
         <View style={estilosGerais.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
-              <TouchableOpacity onPress={() => navigation.navigate('Onboarding', { title: 'Onboarding', })}>
+              <TouchableOpacity onPress={() => navigation.navigate('Login', { title: 'Login', })}>
                 <Image source={require('../../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
             </View>
@@ -63,8 +62,8 @@ export default function EsqueceuSenha({ navigation }) {
           />
         </View>
         <View style={estilosGerais.buttonview}>
-          <Text style={styles.errorMessage}>{errorMessage}</Text>
-          <TouchableOpacity style={styles.buttonLogin} onPress={handleFoundEMail}>
+          <Text style={styles.message}>{message}</Text>
+          <TouchableOpacity style={styles.buttonLogin} onPress={handleResetPassword}>
             <Text style={styles.buttonTextLogin}> Procurar E-Mail </Text>
           </TouchableOpacity>
 
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#683c15',
     borderRadius: 360,
     width: '150%',
-    height: '285%',
+    height: '450%',
     bottom: '-110%',
     right: '-4%',
     zIndex: -1,
@@ -120,48 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  buttonGoogle: {
-    backgroundColor: '#6098F3',
-    alignSelf: 'center',
-    width: '75%',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    margin: 13,
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 10 },
-  },
-  vbGoogle:{
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  google:{
-    width: 30,
-    height: 30,
-  },
-  buttonTextGoogle: {
-    fontFamily: 'Montserrat_600SemiBold',
-    color: '#f5f5f5',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginLeft: 5
-  },
-  forgot:{
-    fontSize: 15,
-    color: '#683C15',
-    fontFamily: 'Montserrat_400Regular',
-    textDecorationLine: 'underline'
-  },
-  linkCadastro:{
-    marginTop: 7,
-    fontSize: 15,
-    color: '#f5f5f5',
-    fontFamily: 'Montserrat_400Regular',
-    textDecorationLine: 'underline'
-  },
-  errorMessage: {
+  message: {
     color: '#f89a14',
     textAlign: 'center',
     fontFamily: 'Montserrat_600SemiBold',

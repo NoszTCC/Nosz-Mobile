@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function SignInScreen({ promptAsync }) {
+export default function SignInScreen() {
   let [fontsLoaded, fontError] = useFonts({
     Montserrat_400Regular,
     Montserrat_500Medium,
@@ -51,7 +51,7 @@ export default function SignInScreen({ promptAsync }) {
           shadowRadius: 3.84,
           elevation: 5,
         }}
-        onPress={() => promptAsync()}
+        
       >
         <AntDesign name="google" size={30} color="white" />
         <Text style={{color: "white", fontSize: 16, fontFamily: 'Montserrat_600SemiBold', }}>
