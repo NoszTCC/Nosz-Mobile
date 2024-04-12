@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
-
 const Home = () => {
   const [user, setUser] = useState(null); 
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#FCF5E5',
     padding: 8,
   },
   paragraph: {

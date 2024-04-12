@@ -1,17 +1,19 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet, Animated } from 'react-native';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import { useFonts, Montserrat_400Regular } from '@expo-google-fonts/montserrat';
+import { FontAwesome5, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold } from '@expo-google-fonts/montserrat';
 
 import Home from '../screens/HomeNosz';
-import Perfil from '../screens/PerfilNosz';
+import Perfil from '../screens/Perfil/PerfilNosz';
+import Buscar from '../screens/Buscar';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   const [fontLoaded] = useFonts({
     Montserrat_400Regular,
+    Montserrat_600SemiBold,
   });
 
   if (!fontLoaded) {
@@ -23,12 +25,24 @@ const BottomTabNavigator = () => {
 
     return (
       <View style={styles.tabIcon}>
+
         <Animated.View style={[styles.circle, { transform: [{ translateY }] }]}>
           {icon}
         </Animated.View>
-        <Animated.Text style={[styles.tabText, { color: focused ? '#683C15' : '#fff', transform: [{ translateY }] }]}>
-          {label}
-        </Animated.Text>
+
+        <Animated.Text 
+          style={[
+          styles.tabText, 
+            { 
+            color: focused ? '#683C15' : '#fff', 
+            transform: [{ translateY }],
+            fontFamily: 'Montserrat_600SemiBold'
+            }   
+          ]}
+        >
+  {label}
+</Animated.Text>
+
       </View>
     );
   };
@@ -78,6 +92,20 @@ const BottomTabNavigator = () => {
               focused={focused}
               icon={<Ionicons name="home" size={25} color="#fff" />}
               label="Início"
+            />
+          ),
+        }}
+      />
+
+    <Tab.Screen
+        name="Buscar"
+        component={Buscar}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              icon={<FontAwesome name="search" size={24} color="white" />}
+              label="Buscar"
             />
           ),
         }}

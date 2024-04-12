@@ -7,8 +7,21 @@ import OnboardingItem from "./OnboardingItem";
 import slides from './slides';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 export default function Onboarding() {
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            navigation.navigate('Inicio');
+          }
+        });
+        return unsubscribe;
+      }, []);
+
     const navigation = useNavigation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollX = useRef(new Animated.Value(0)).current;

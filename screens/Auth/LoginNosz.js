@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, StatusBar } from 'react-native';
 import { initializeApp } from '@firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import firebaseConfig from '../../firebaseConfig';
 import { estilizar } from '../../assets/EstilosGerais';
 import LoginGoogle from './LoginGoogle';
 
-
 const app = initializeApp(firebaseConfig);
 
 export default function Login({ navigation }) {
-
   const estilosGerais = estilizar();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
-
 
   const handleAuthentication = async () => {
     try {
@@ -28,14 +25,11 @@ export default function Login({ navigation }) {
         setErrorMessage('Email ou Senha incorretos.');
       } else if (error.code === 'auth/invalid-email'){
         setErrorMessage('Por favor, insira um email válido.');
-      } 
-     else if (error.code === 'auth/user-not-found'){
-      setErrorMessage('Email não cadastrado.');
-      }
-      else if (error.code === 'auth/missing-password'){
+      } else if (error.code === 'auth/user-not-found'){
+        setErrorMessage('Email não cadastrado.');
+      } else if (error.code === 'auth/missing-password'){
         setErrorMessage('Por favor, insira a senha.');
-        }  
-      else {
+      } else {
         setErrorMessage(error.message);
       }
       console.error('Erro ao fazer login:', error);
