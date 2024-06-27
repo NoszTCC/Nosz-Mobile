@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { AntDesign } from '@expo/vector-icons';
@@ -43,7 +43,6 @@ export default function NextButton({ percentage, scrollTo }) {
   return (
     <View style={styles.container}>
       <Svg width={size} height={size}>
-
         <Circle
           ref={progressRef}
           stroke="#479d32"
@@ -54,22 +53,18 @@ export default function NextButton({ percentage, scrollTo }) {
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
         />
-
-          <Circle
+        <Circle
           cx={center}
           cy={center}
           r={radius * 0.6}
           fill="#E46216" 
         />
-
       </Svg>
       <TouchableOpacity onPress={scrollTo} style={styles.button} activeOpacity={0.6}>
         <AntDesign name="arrowright" size={42} color="#fff" />
       </TouchableOpacity>
     </View>
   );
-  
-  
 }
 
 const styles = StyleSheet.create({
@@ -82,6 +77,10 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
+    width: 128,
+    height: 128,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
   },
 });

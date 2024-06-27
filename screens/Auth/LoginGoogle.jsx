@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Button, SafeAreaView, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
-import * as SplashScreen from 'expo-splash-screen';
 
 export default function SignInScreen() {
   let [fontsLoaded, fontError] = useFonts({
@@ -16,13 +15,6 @@ export default function SignInScreen() {
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
-      try { 
-        await SplashScreen.preventAutoHideAsync(); 
-      } catch (e) { 
-        console.warn(e); 
-      } finally { 
-        await SplashScreen.hideAsync(); 
-      }
     }
 
     if (!fontsLoaded && !fontError) { 

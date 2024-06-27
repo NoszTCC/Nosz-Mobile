@@ -6,21 +6,10 @@ import NextButton from "./NextButton";
 import OnboardingItem from "./OnboardingItem";
 import slides from './slides';
 import { useFonts, Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_800ExtraBold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
-import * as SplashScreen from 'expo-splash-screen';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Onboarding() {
-
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            navigation.navigate('Inicio');
-          }
-        });
-        return unsubscribe;
-      }, []);
 
     const navigation = useNavigation();
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -40,6 +29,29 @@ export default function Onboarding() {
         }
     };
 
+    useEffect(() => {
+        async function checkParceiro() {
+            try {
+                const isParceiro = await AsyncStorage.getItem('isParceiro');
+                if (isParceiro === 'true') {
+                    navigation.navigate('HomeParceiro');
+                } else {
+                    navigation.navigate('Inicio');
+                }
+            } catch (error) {
+                console.error('Erro ao verificar se é parceiro:', error);
+            }
+        }
+    
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                checkParceiro();
+            }
+        });
+    
+        return unsubscribe;
+    }, []);
 
     let [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -52,13 +64,7 @@ export default function Onboarding() {
 
     useEffect(() => {
         async function loadResourcesAndDataAsync() {
-            try {
-                SplashScreen.preventAutoHideAsync();
-            } catch (e) {
-                console.warn(e);
-            } finally {
-                await SplashScreen.hideAsync();
-            }
+            
         }
 
         if (!fontsLoaded) {

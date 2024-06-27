@@ -25,8 +25,8 @@ export default [
     },
     {
         id: '5',
-        titulo: 'Objetivos de Desenvolvimento Sustentável',
-        descricao: 'Comprometidos com os ODS 2 (Fome Zero), 3 (Saúde e Bem-Estar) e 11 (Cidades e Comunidades Sustentáveis).',
+        titulo: "ODS's ",
+        descricao: 'Comprometidos com os Objetivos de Desenvolvimento Sustentável: 2 (Fome Zero), 3 (Saúde e Bem-Estar) e 11 (Cidades e Comunidades Sustentáveis).',
         imagem: require('../../assets/images/ODS.jpg')
     }
 ];

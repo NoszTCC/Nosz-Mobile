@@ -2,7 +2,7 @@
   "expo": {
     "name": "Nosz",
     "slug": "Nosz",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/images/nosz.png",
     "userInterfaceStyle": "light",
@@ -18,16 +18,23 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 3,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/nosz.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.nosztcc.Nosz"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "db13ec33-4659-4254-b705-781b5336b96c"
+      }
+    }
   }
 }

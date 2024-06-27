@@ -3,13 +3,13 @@ import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, TextInpu
 import { initializeApp } from '@firebase/app';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import firebaseConfig from '../../firebaseConfig';
-import { estilizar } from '../../assets/EstilosGerais';
+import { Estilizar } from '../../assets/EstilosGerais';
 
 const app = initializeApp(firebaseConfig);
 
 export default function EsqueceuSenha({ navigation }) {
 
-  const estilosGerais = estilizar();
+  const estilosGerais = Estilizar();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
@@ -26,6 +26,10 @@ export default function EsqueceuSenha({ navigation }) {
       } 
     }
   };
+  
+  function voltarLogin() {
+    navigation.navigate('Login', { title: 'Login' })
+  }
 
   return (
     <SafeAreaView style={estilosGerais.container}>
@@ -38,7 +42,7 @@ export default function EsqueceuSenha({ navigation }) {
         <View style={estilosGerais.vheader}>
           <View style={styles.preheader}>
             <View style={styles.vgoback}>
-              <TouchableOpacity onPress={() => navigation.navigate('Login', { title: 'Login', })}>
+              <TouchableOpacity onPress={voltarLogin}>
                 <Image source={require('../../assets/images/voltar-icon.png')} style={estilosGerais.voltar} />
               </TouchableOpacity>
             </View>
@@ -48,23 +52,24 @@ export default function EsqueceuSenha({ navigation }) {
               <Text style={estilosGerais.txt}>Insira seu E-Mail</Text>
             </View>
           </View>
-          <Image source={require('../../assets/images/nosz.png')} style={estilosGerais.nosz} />
-          <View style={styles.circulo}></View>
+          <Image source={require('../../assets/images/nosz.png')} style={[estilosGerais.nosz, {zIndex: 999}]} />
+          <View style={[estilosGerais.circulo, {backgroundColor: '#683c15'}]}></View>
         </View>
         <View style={styles.vinputs}>
           <TextInput
             style={estilosGerais.input}
-            placeholder='E-Mail'
+            placeholder='Email'
             cursorColor={'#E46216'}
             value={email}
             onChangeText={setEmail}
             autoCapitalize='none'
+            autoFocus = {true}
           />
         </View>
         <View style={estilosGerais.buttonview}>
           <Text style={styles.message}>{message}</Text>
-          <TouchableOpacity style={styles.buttonLogin} onPress={handleResetPassword}>
-            <Text style={styles.buttonTextLogin}> Procurar E-Mail </Text>
+          <TouchableOpacity style={estilosGerais.buttonLogin} onPress={handleResetPassword}>
+            <Text style={estilosGerais.buttonTextLogin}> Enviar Email de Recuperação</Text>
           </TouchableOpacity>
 
           <View style={styles.circulo2}></View>
@@ -75,16 +80,6 @@ export default function EsqueceuSenha({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  circulo: {
-    position: 'absolute',
-    backgroundColor: '#683c15',
-    borderRadius: 360,
-    width: '150%',
-    height: '285%',
-    right: '34%',
-    bottom: '-290%',
-    zIndex: -1,
-  },
   vinputs:{
     flex: 1, 
     justifyContent: 'flex-end',
@@ -95,29 +90,9 @@ const styles = StyleSheet.create({
     borderRadius: 360,
     width: '150%',
     height: '450%',
-    bottom: '-110%',
+    bottom: '-150%',
     right: '-4%',
     zIndex: -1,
-  },
-  buttonLogin: {
-    backgroundColor: '#E46216',
-    alignSelf: 'center',
-    width: '75%',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    margin: 13,
-    borderRadius: 25,
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 10 },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-  buttonTextLogin: {
-    fontFamily: 'Montserrat_600SemiBold',
-    color: '#f5f5f5',
-    fontSize: 16,
-    textAlign: 'center',
   },
   message: {
     color: '#f89a14',
